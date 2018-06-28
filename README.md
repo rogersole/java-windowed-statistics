@@ -10,7 +10,7 @@ The project tries to solve the problem about retrieving the statistics of api us
 
  ```json
 {
-  "amount": 12.34,			 	# double
+  "amount": 12.34,           # double
   "timestamp": 1234567890123	# long
 }
 ```
