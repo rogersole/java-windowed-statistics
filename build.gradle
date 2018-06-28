@@ -1,0 +1,73 @@
+group 'rogersole.windowedstats'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "http://repo.spring.io/milestone/"
+        }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "application"
+apply plugin: 'org.springframework.boot'
+
+
+jar {
+    baseName = applicationName
+    version = project.version
+}
+
+applicationName = "java-windowed-statistics"
+mainClassName = "rogersole.windowedstats.Application"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://repo.spring.io/libs-snapshot"
+    }
+}
+
+
+configurations {
+    all*.exclude group: "com.vaadin.external.google", module: "android-json"
+}
+
+dependencies {
+
+    compile(
+            "net.logstash.logback:logstash-logback-encoder:${logbackVersion}",
+            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    )
+
+
+    compileOnly(
+            "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+    testCompile(
+            "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
+            "org.json:json:${orgJsonVersion}"
+    )
+
+    testCompileOnly(
+            "org.projectlombok:lombok:${lombokVersion}"
+    )
+
+}
